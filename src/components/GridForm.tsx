@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import LoadingOverlay from 'react-loading-overlay-ts';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import logo from './logo.svg';
+import Australia from "/home/ishfaq/training-app/src/flags/Australia.png"
+import america from "/home/ishfaq/training-app/src/flags/america.png"
+import FlagSelect from './FlagSelect';
 
 interface IFormInput {
     firstName: string;
@@ -14,6 +16,10 @@ interface IFormInput {
     password: string;
 }
 
+const flags = {
+    imgs: [america, Australia],
+    name: ["+1-United States", "+61-Australia"]
+  }
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,7 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingLeft: "45px",
             "& .MuiGrid-spacing-xs-2 > .MuiGrid-item": {
                 padding: "18px",
-                
+
+            },
+            "& .MuiFormLabel-root.Mui-focused": {
+                color: "#02E0B1"
             }
         },
         formnames: {
@@ -57,8 +66,38 @@ const useStyles = makeStyles((theme: Theme) =>
                 padding: "55px !important",
                 color: "#FFFFFF !important"
             }
-        }
+        },
+        phonenumber: {
+            width: "310px",
+            height: "58px",
+            paddingLeft: "55px",
 
+            borderWidth: "1px",
+            borderColor: "#DFDFDF",
+            borderStyle: "ridge",
+
+            "& .MuiInputLabel-formControl": {
+                paddingLeft: "55px",
+            },
+            
+            
+        },
+        container: {
+            position: "relative",
+            padding: "0",
+            margin: "0",
+
+            "& .MuiFormLabel-root.Mui-focused": {
+                paddingLeft: "75px"
+            }
+        },
+        flagimg: {
+            position: "absolute",
+            bottom: "20px",
+            left: "12px",
+            width: "24px",
+            height: "16px",
+        }
 
     })
 );
@@ -69,6 +108,10 @@ function capitalizeFirstLetter(string: string) {
 
 function GridForm() {
     const classes = useStyles();
+    //This state is to send true or false to component FlagSelect to trigger dialogue box
+    const [dialogbool, setdialogbool] = useState(false)
+    const [selectedFlag, setSelectedFlag] = React.useState(flags.imgs[0])
+    const [phonePattern, setPhonePattern] = useState("US")
 
     const {
         register,
@@ -81,17 +124,31 @@ function GridForm() {
         setTimeout(() => {
             setLoader(false);
         }, 5000)
-        console.log("loader :", Loader)
+       // console.log("loader :", Loader)
         data.firstName = capitalizeFirstLetter(data.firstName)
         data.lastName = capitalizeFirstLetter(data.lastName)
         alert(JSON.stringify(data));
     }; // your form submit function which will invoke after successful validation
+    
+    //Call back function for FlagSelect component
+    const flagstatechange = (index: number) => {
+        console.log("flagstatechanger ;", index)
+        setdialogbool(false)
+        setSelectedFlag(flags.imgs[index])
+        flags.name[index] === "+1-United States" ? setPhonePattern("US") : setPhonePattern("AUS")
+    }
+   
+    // call the flagselect compnent for dialogue box
+    const handleflagselect = () => {
+        setdialogbool(true);
+     }
 
-    //This code is for loader over the page
+    //This state is for loader over the page
     const [Loader, setLoader] = useState(false)
 
-
     return (
+        <div>
+
         <LoadingOverlay
             active={Loader}
             spinner={true}
@@ -135,12 +192,13 @@ function GridForm() {
 
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-
-
-
-
-                                <TextField id="standard-basic" label="Phone Number" className={classes.formfields}
-                                    {...register("phoneNumber", { required: true })} />
+                                <div className={classes.container}>
+                                    <TextField id="standard-basic" label="Phone Number" className={classes.phonenumber}
+                                        {...register("phoneNumber", { 
+                                        required: true,
+                                        pattern: phonePattern === "AUS" ? /^[0-9\s]*$/i : /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/i, })}/>
+                                    <img src={selectedFlag} alt="logo" className={classes.flagimg}  onClick={handleflagselect}/>
+                                </div>
                                 {errors?.phoneNumber?.type === "pattern" && (
                                     <p>invalid Phone number</p>
                                 )}
@@ -150,7 +208,7 @@ function GridForm() {
 
 
                                 <TextField id="standard-basic" label="Email" className={classes.formfields}
-                                    {...register("email", {required: true, pattern: /^[a-z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })} />
+                                    {...register("email", { required: true, pattern: /^[a-z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i })} />
                                 {errors?.email?.type === "pattern" && (
                                     <p>invalid email address</p>
                                 )}
@@ -184,7 +242,9 @@ function GridForm() {
             </div>
 
         </LoadingOverlay>
-
+       
+       <FlagSelect value={dialogbool} callBack={(index: number)=>flagstatechange(index)}/>
+       </div>
     );
 }
 export default GridForm;
