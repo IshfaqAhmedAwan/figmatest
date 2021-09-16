@@ -27,6 +27,9 @@ body {
   
   p {
     color: #bf1650;
+    height: 0px;
+    margin-top: 7px;
+    margin-bottom: 22px;
   }
   
   p::before {
@@ -62,7 +65,7 @@ body {
     color: white;
     text-transform: uppercase;
     border: none;
-    margin-top: 40px;
+    
     padding: 20px;
     font-size: 16px;
     font-weight: 100;
