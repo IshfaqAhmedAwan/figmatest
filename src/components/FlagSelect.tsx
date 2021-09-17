@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -70,12 +69,7 @@ export default function FlagSelect(props: any) {
 
   useEffect(() => {
     setOpen(props.value)
-  });
-
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  }, [props.value]);
 
   const handleClose = (index: number) => {
     setOpen(false);
@@ -85,9 +79,6 @@ export default function FlagSelect(props: any) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open simple dialog
-      </Button>
       <SimpleDialog
         selectedIndex={0}
         open={open}
