@@ -1,25 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import Australia from "/home/ishfaq/training-app/src/flags/Australia.png"
-import america from "/home/ishfaq/training-app/src/flags/america.png"
-import { Typography } from "@material-ui/core";
+import Australia from "flags/Australia.png";
+import america from "flags/america.png";
+import {
+  Typography,
+  List,
+  ListItem,
+  DialogTitle,
+  Dialog,
+} from "@material-ui/core";
 
-const flags = {
-  imgs: [america, Australia],
-  name: ["+1-United States", "+61-Australia"]
-}
 const useStyles = makeStyles({
   flags: {
-    paddingLeft: "12px"
-
-  }
+    paddingLeft: "12px",
+  },
 });
 
-export interface SimpleDialogProps {
+const Flags = [
+  {
+    img: america,
+    code: "+1-United States",
+  },
+  {
+    img: Australia,
+    code: "+61-Australia",
+  },
+];
+interface SimpleDialogProps {
   open: boolean;
   selectedIndex: number;
   onClose: (selectedIndex: number) => void;
@@ -28,14 +35,8 @@ export interface SimpleDialogProps {
 function SimpleDialog(props: SimpleDialogProps) {
   const classes = useStyles();
   const { onClose, selectedIndex, open } = props;
-
-  const handleClose = () => {
-    onClose(selectedIndex);
-  };
-
-  const handleListItemClick = (selectedIndex: number) => {
-    onClose(selectedIndex);
-  };
+  const handleClose = () => onClose(selectedIndex);
+  const handleListItemClick = (selectedIndex: number) => onClose(selectedIndex);
 
   return (
     <Dialog
@@ -45,45 +46,39 @@ function SimpleDialog(props: SimpleDialogProps) {
     >
       <DialogTitle id="simple-dialog-title">Select country</DialogTitle>
       <List>
-        {flags.imgs.map((img, selectedIndex) => (
+        {Flags.map((row, selectedIndex) => (
           <ListItem
             button
             onClick={() => handleListItemClick(selectedIndex)}
-            key={img}>
-            <img src={img} alt="logo" />
-            <Typography variant="subtitle1" className={classes.flags}> {flags.name[selectedIndex]}</Typography>
+            key={row.img}
+          >
+            <img src={row.img} alt="logo" />
+            <Typography variant="subtitle1" className={classes.flags}>
+              {" "}
+              {row.code}
+            </Typography>
           </ListItem>
-
         ))}
-
       </List>
     </Dialog>
   );
 }
 
-export default function FlagSelect(props: any) {
-  const [open, setOpen] = useState(props.value ? true : false);
-  
-
-  //console.log("open and props : ", open,props.value)
+export default function FlagSelect(defaultSelectedIndex: any) {
+  const [open, setOpen] = useState(defaultSelectedIndex.value ? true : false);
 
   useEffect(() => {
-    setOpen(props.value)
-  }, [props.value]);
+    setOpen(defaultSelectedIndex.value);
+  }, [defaultSelectedIndex.value]);
 
   const handleClose = (index: number) => {
     setOpen(false);
-    //console.log("close log", index);
-    props.callBack(index)
+    defaultSelectedIndex.callBack(index);
   };
 
   return (
     <div>
-      <SimpleDialog
-        selectedIndex={0}
-        open={open}
-        onClose={handleClose}
-      />
+      <SimpleDialog selectedIndex={0} open={open} onClose={handleClose} />
     </div>
   );
 }

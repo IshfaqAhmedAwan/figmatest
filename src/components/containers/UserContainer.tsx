@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import GridForm from "../UserRegister";
-import { submitUser } from "../actions/users";
+import GridForm from "components/UserRegister";
+import { submitUser } from "components/actions/users"
 
 const mapStateToProps = (state: any) => {
   return {
@@ -9,4 +9,3 @@ const mapStateToProps = (state: any) => {
 };
 
 export default connect(mapStateToProps, { submitUser })(GridForm);
-// export default Home;

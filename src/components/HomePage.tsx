@@ -33,9 +33,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-function SuccesPage(props: any) {
+
+function HomePage(content: any) {
   const classes = useStyles();
-  let data = props.userdata[0].content;
 
   return (
     <div className={classes.root}>
@@ -48,8 +48,8 @@ function SuccesPage(props: any) {
           </Grid>
           <Grid item xs={2}>
             <h1>
-              Thanks, {data.firstName}! <br /> We've received your <br />{" "}
-              Application
+              Thanks, {content.userdata.firstName}! <br /> We've received your{" "}
+              <br /> Application
             </h1>
           </Grid>
         </Grid>
@@ -58,14 +58,14 @@ function SuccesPage(props: any) {
       <div>
         <text>
           We’ll process your application as soon as possible and send you a
-          decision within 30 days to {data.phoneNumber} or {data.email}.com. We
-          will contact you in case more information is needed. While we’re
-          reviewing your application, please don’t submit another application
-          for the uPet’s breeder program.
+          decision within 30 days to {content.userdata.phoneNumber} or{" "}
+          {content.userdata.email}.com. We will contact you in case more
+          information is needed. While we’re reviewing your application, please
+          don’t submit another application for the uPet’s breeder program.
         </text>
       </div>
     </div>
   );
 }
 
-export default SuccesPage;
+export default HomePage;

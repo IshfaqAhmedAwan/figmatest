@@ -4,18 +4,23 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import LoadingOverlay from "react-loading-overlay-ts";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Australia from "/home/ishfaq/training-app/src/flags/Australia.png";
-import america from "/home/ishfaq/training-app/src/flags/america.png";
+import Australia from "flags/Australia.png";
+import america from "flags/america.png";
 import FlagSelect from "./FlagSelect";
 import Logo from "./Logo.png";
 import { IFormInput } from "./interfaces";
-
 import { useHistory } from "react-router-dom";
 
-const flags = {
-  imgs: [america, Australia],
-  name: ["+1-United States", "+61-Australia"],
-};
+const Flags = [
+  {
+    img: america,
+    code: "+1-United States",
+  },
+  {
+    img: Australia,
+    code: "+61-Australia",
+  },
+];
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,8 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
       "& .MuiOutlinedInput-input": {
         paddingLeft: "44px",
       },
-      
     },
+    
     container: {
       position: "relative",
       padding: "0",
@@ -82,21 +87,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function capitalizeFirstLetter(name: string) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
 const GridForm = (props: any) => {
-  console.log("User props ", props.userdata);
   let history = useHistory();
   const classes = useStyles();
   //This state is to send true or false to component FlagSelect to trigger dialogue box
-  const [dialogbool, setdialogbool] = useState(false);
-  const [selectedFlag, setSelectedFlag] = React.useState(flags.imgs[0]);
+  const [dialogBool, setDialogBool] = useState(false);
+  const [selectedFlag, setSelectedFlag] = React.useState(Flags[0].img);
   const [phonePattern, setPhonePattern] = useState("US");
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
-    return () => setdialogbool(false);
+    return () => setDialogBool(false);
   }, []);
 
   const {
@@ -110,35 +115,30 @@ const GridForm = (props: any) => {
     setTimeout(() => {
       setLoader(false);
     }, 5000);
-    // console.log("loader :", Loader)
+
     data.firstName = capitalizeFirstLetter(data.firstName);
     data.lastName = capitalizeFirstLetter(data.lastName);
     props.submitUser(data);
-    history.push("/successpage");
-    //alert(JSON.stringify(data));
+    history.push("/home-page");
   }; // your form submit function which will invoke after successful validation
 
   //Call back function for FlagSelect component
-  const flagstatechange = (index: number) => {
-    console.log("flagstatechanger ;", index);
-    setdialogbool(false);
-    setSelectedFlag(flags.imgs[index]);
-    flags.name[index] === "+1-United States"
+  const flagStateChange = (index: number) => {
+    setDialogBool(false);
+    setSelectedFlag(Flags[index].img);
+    Flags[index].code === "+1-United States"
       ? setPhonePattern("US")
       : setPhonePattern("AUS");
   };
 
   // call the flagselect compnent for dialogue box
   const handleflagselect = () => {
-    setdialogbool(true);
+    setDialogBool(true);
   };
-
-  //This state is for loader over the page
-  const [Loader, setLoader] = useState(false);
 
   return (
     <div>
-      <LoadingOverlay active={Loader} spinner={true} text="Loading ...">
+      <LoadingOverlay active={loader} spinner={true} text="Loading ...">
         <div className={classes.root}>
           <div>
             {" "}
@@ -268,8 +268,8 @@ const GridForm = (props: any) => {
       </LoadingOverlay>
 
       <FlagSelect
-        value={dialogbool}
-        callBack={(index: number) => flagstatechange(index)}
+        value={dialogBool}
+        callBack={(index: number) => flagStateChange(index)}
       />
     </div>
   );

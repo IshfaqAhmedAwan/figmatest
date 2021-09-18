@@ -1,13 +1,9 @@
-import { IFormInput } from "../interfaces";
-import { SUBMIT} from "../types";
-let id=0
+import { IFormInput } from "components/interfaces";
+import { SUBMIT} from "components/types";
 
 export const submitUser = (value:IFormInput) => (
     {
         type: SUBMIT,
-        payload: {
-            id: ++id,
-            content: value
-        }
+        payload: value
     }
 );
