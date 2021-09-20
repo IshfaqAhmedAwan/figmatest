@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       "& .MuiFormLabel-root.Mui-focused": {
         color: "#02E0B1",
       },
+      
     },
 
     logo: {
@@ -60,21 +61,21 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "366px",
       height: "58px",
 
-      "& .MuiInputLabel-formControl": {
-        paddingLeft: "30px",
+      "& .MuiOutlinedInput-input:-webkit-autofill": {
+        paddingLeft: "44px",
       },
       "& .MuiOutlinedInput-input": {
         paddingLeft: "44px",
       },
     },
-    
+
     container: {
       position: "relative",
       padding: "0",
       margin: "0",
 
       "& .MuiFormLabel-root.Mui-focused": {
-        paddingLeft: "25px",
+        paddingLeft: "5px",
       },
     },
     flagimg: {
@@ -86,6 +87,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+enum path {
+  home_page = "/home-page",
+}
 
 function capitalizeFirstLetter(name: string) {
   return name.charAt(0).toUpperCase() + name.slice(1);
@@ -119,7 +124,7 @@ const GridForm = (props: any) => {
     data.firstName = capitalizeFirstLetter(data.firstName);
     data.lastName = capitalizeFirstLetter(data.lastName);
     props.submitUser(data);
-    history.push("/home-page");
+    history.push(path.home_page);
   }; // your form submit function which will invoke after successful validation
 
   //Call back function for FlagSelect component
