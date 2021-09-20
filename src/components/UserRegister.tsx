@@ -60,12 +60,12 @@ const useStyles = makeStyles((theme: Theme) =>
     phonenumber: {
       width: "366px",
       height: "58px",
-
+      
       "& .MuiOutlinedInput-input:-webkit-autofill": {
         paddingLeft: "44px",
       },
-      "& .MuiOutlinedInput-input": {
-        paddingLeft: "44px",
+      "& .MuiInputLabel-outlined ": {
+        paddingLeft: "33px",
       },
     },
 
@@ -76,6 +76,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       "& .MuiFormLabel-root.Mui-focused": {
         paddingLeft: "5px",
+      },
+      "& .makeStyles-phonenumber-5 .MuiInputLabel-outlined ": {
+        paddingLeft: "22px",
       },
     },
     flagimg: {
