@@ -1,6 +1,6 @@
 import React from "react";
-import Logo from "./Logo.png";
-import Message from "./MessageLogo.png";
+import Logo from "components/Logo.png";
+import Message from "components/MessageLogo.png";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 

@@ -6,9 +6,9 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Australia from "flags/Australia.png";
 import america from "flags/america.png";
-import FlagSelect from "./FlagSelect";
-import Logo from "./Logo.png";
-import { IFormInput } from "./interfaces";
+import FlagSelect from "components/FlagSelect";
+import Logo from "components/Logo.png";
+import { IFormInput } from "components/interfaces";
 import { useHistory } from "react-router-dom";
 
 const Flags = [
@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "896px",
       marginTop: "30px",
       paddingLeft: "25px",
+
       "& .MuiGrid-spacing-xs-2 > .MuiGrid-item": {
         padding: "18px",
       },
       "& .MuiFormLabel-root.Mui-focused": {
         color: "#02E0B1",
       },
-      
     },
 
     logo: {
