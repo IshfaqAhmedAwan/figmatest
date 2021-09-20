@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "FormStyle.css";
 import UserContainer from "components/containers/UserContainer";
-import HomeContainer from "components/containers/HomeContainer";
+import HomePage from 'components/HomePage';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Router>
           <Switch>
             <Route path="/" exact component={UserContainer} />
-            <Route path="/home-page" component={HomeContainer} />
+            <Route path="/home-page" component={HomePage} />
           </Switch>
         </Router>
       </div>

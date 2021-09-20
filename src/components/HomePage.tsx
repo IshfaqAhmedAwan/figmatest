@@ -3,6 +3,7 @@ import Logo from "components/Logo.png";
 import Message from "components/MessageLogo.png";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,9 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function HomePage(content: any) {
+function HomePage() {
   const classes = useStyles();
-
+  //useSelector hook is used to make store object to get data from store
+  const user = useSelector((state: RootStateOrAny) => state.figma.user_data.action.payload);
+  
   return (
     <div className={classes.root}>
       <img src={Logo} alt="logo" className={classes.logo} />
@@ -48,7 +51,7 @@ function HomePage(content: any) {
           </Grid>
           <Grid item xs={2}>
             <h1>
-              Thanks, {content.userdata.firstName}! <br /> We've received your{" "}
+              Thanks, {user.firstName}! <br /> We've received your{" "}
               <br /> Application
             </h1>
           </Grid>
@@ -58,8 +61,8 @@ function HomePage(content: any) {
       <div>
         <text>
           We’ll process your application as soon as possible and send you a
-          decision within 30 days to {content.userdata.phoneNumber} or{" "}
-          {content.userdata.email}.com. We will contact you in case more
+          decision within 30 days to {user.phoneNumber} or{" "}
+          {user.email}.com. We will contact you in case more
           information is needed. While we’re reviewing your application, please
           don’t submit another application for the uPet’s breeder program.
         </text>
