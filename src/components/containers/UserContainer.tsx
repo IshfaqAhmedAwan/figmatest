@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import GridForm from "components/UserRegister";
-import { submitUser } from "components/actions/users";
+import { submitUser } from "store/actions/users";
 
 const mapStateToProps = (state: any) => {
   return {

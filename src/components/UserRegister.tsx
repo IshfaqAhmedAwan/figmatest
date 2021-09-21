@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Australia from 'flags/Australia.png';
 import america from 'flags/america.png';
 import FlagSelect from 'components/FlagSelect';
-import Logo from 'components/Logo.png';
 import { IFormInput } from 'components/interfaces';
 import { useHistory } from 'react-router-dom';
 import { path } from 'paths';
@@ -142,8 +141,8 @@ const GridForm = (props: any) => {
           <div className={classes.root}>
             <div>
               {' '}
-              <img src={Logo} alt='logo' className={classes.logo} />{' '}
-            </div>
+              <img src='Logo.png' alt='logo' className={classes.logo} />{' '}
+            </div>  
             <form onSubmit={handleSubmit(onSubmit)}>
               <Grid container direction='row' spacing={0}>
                 <Grid container spacing={6}>

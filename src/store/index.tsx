@@ -1,5 +1,5 @@
 import { createStore, combineReducers, compose } from "redux";
-import { user } from "components/reducers";
+import { user } from "store/reducers";
 
 declare global {
   interface Window {

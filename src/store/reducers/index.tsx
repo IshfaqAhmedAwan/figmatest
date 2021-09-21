@@ -1,4 +1,4 @@
-import { SUBMIT } from "components/types";
+import { SUBMIT } from "store/types";
 
 export const user = (state = { info: [] }, action: any) => {
   switch (action.type) {

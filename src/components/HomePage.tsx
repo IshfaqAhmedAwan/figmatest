@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from 'components/Logo.png';
 import Message from 'components/MessageLogo.png';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -75,7 +74,7 @@ function HomePage() {
   return (
     <div className={classes.wall}>
       <div className={classes.root}>
-        <img src={Logo} alt='logo' className={classes.logo} />
+        <img src='Logo.png' alt='logo' className={classes.logo} />
 
         <Grid container direction='row' spacing={0}>
           <Grid container spacing={6}>
