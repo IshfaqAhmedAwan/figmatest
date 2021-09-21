@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '836px',
       marginTop: '30px',
       paddingLeft: '25px',
-      marginLeft: '333px',
+      marginLeft: '609px',
       '& .MuiGrid-spacing-xs-6 > .MuiGrid-item': {
         paddingTop: '3px',
       },

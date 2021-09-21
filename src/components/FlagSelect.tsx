@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Australia from 'flags/Australia.png';
 import america from 'flags/america.png';
 import { Typography, List, ListItem, DialogTitle, Dialog } from '@material-ui/core';
+import React from 'react';
 
 const useStyles = makeStyles({
   flags: {
