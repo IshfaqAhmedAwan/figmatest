@@ -1,5 +1,5 @@
 import React from 'react';
-import Message from 'assets/MessageLogo.png';
+import Message from 'assets/images/MessageLogo.png';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import { RootStateOrAny, useSelector } from 'react-redux';

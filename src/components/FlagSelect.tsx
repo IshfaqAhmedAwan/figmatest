@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Australia from 'assets/Australia.png';
-import america from 'assets/america.png';
+import Australia from 'assets/images/Australia.png';
+import america from 'assets/images/america.png';
 import { Typography, List, ListItem, DialogTitle, Dialog } from '@material-ui/core';
 import React from 'react';
 
@@ -60,7 +60,6 @@ export default function FlagSelect(props: any) {
 
   const handleClose = (index: number) => {
     setOpen(false);
-    console.log('callBack ', props);
     props.getIndex(index);
   };
 

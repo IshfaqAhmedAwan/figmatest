@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import UserContainer from 'pages/User/containers/UserContainer';
 
-function AuthRoutes() {
+function UserRoutes() {
   return (
     <Router>
       <Switch>
@@ -14,4 +14,4 @@ function AuthRoutes() {
   );
 }
 
-export default AuthRoutes;
+export default UserRoutes;

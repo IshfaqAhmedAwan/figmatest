@@ -2,17 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from 'store';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import HomePage from 'components/HomePage';
-import UserContainer from 'pages/User/containers/UserContainer';
-import AuthRoutes from 'pages/User';
+import UserRoutes from 'pages/User';
 
 function App() {
   return (
     <Provider store={store}>
       <div className='App'>
-        <AuthRoutes />
+        <UserRoutes />
       </div>
     </Provider>
   );
