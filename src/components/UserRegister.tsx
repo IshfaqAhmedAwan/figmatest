@@ -4,10 +4,10 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import LoadingOverlay from 'react-loading-overlay-ts';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Australia from 'flags/Australia.png';
-import america from 'flags/america.png';
+import Australia from 'assets/Australia.png';
+import america from 'assets/america.png';
 import FlagSelect from 'components/FlagSelect';
-import { IFormInput } from 'components/interfaces';
+import { IFormInput } from 'config/interfaces';
 import { useHistory } from 'react-router-dom';
 import { path } from 'paths';
 import { capitalizeFirstLetter } from 'HelperFunctions';
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GridForm = (props: any) => {
+const UserForm = (props: any) => {
   let history = useHistory();
   const classes = useStyles();
   const formClasses = formStyles();
@@ -248,4 +248,4 @@ const GridForm = (props: any) => {
   );
 };
 
-export default GridForm;
+export default UserForm;

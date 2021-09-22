@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Australia from 'flags/Australia.png';
-import america from 'flags/america.png';
+import Australia from 'assets/Australia.png';
+import america from 'assets/america.png';
 import { Typography, List, ListItem, DialogTitle, Dialog } from '@material-ui/core';
 import React from 'react';
 
