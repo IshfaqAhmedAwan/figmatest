@@ -2,21 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from 'store';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import UserContainer from 'components/containers/UserContainer';
-import HomePage from 'components/HomePage';
+import UserRoutes from 'pages/User';
 
 function App() {
   return (
     <Provider store={store}>
       <div className='App'>
-        <Router>
-          <Switch>
-            <Route path='/' exact component={UserContainer} />
-            <Route path='/home-page' component={HomePage} />
-          </Switch>
-        </Router>
+        <UserRoutes />
       </div>
     </Provider>
   );
