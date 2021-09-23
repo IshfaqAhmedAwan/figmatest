@@ -1,14 +1,15 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { RootStateOrAny, useSelector } from 'react-redux';
-import { Body, Heading, Logo, MessageIcon, Paragraph, Wall } from 'StyledComponents/UserStyle';
+import { Background, FormBackground, Logo } from 'StyledComponents/CommonStyle';
+import { Heading, MessageIcon, Paragraph } from 'StyledComponents/HomeStyle';
 
 function HomePage() {
   const user = useSelector((state: RootStateOrAny) => state.user.info);
 
   return (
-    <Body>
-      <Wall>
+    <Background>
+      <FormBackground>
         <Logo />
 
         <Grid container direction='row' spacing={0}>
@@ -31,8 +32,8 @@ function HomePage() {
             please don’t submit another application for the uPet’s breeder program.
           </Paragraph>
         </div>
-      </Wall>
-    </Body>
+      </FormBackground>
+    </Background>
   );
 }
 
