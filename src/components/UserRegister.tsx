@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import LoadingOverlay from 'react-loading-overlay-ts';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Grid from '@material-ui/core/Grid';
 import Australia from 'assets/images/Australia.png';
 import america from 'assets/images/america.png';
@@ -9,9 +10,10 @@ import { IFormInput } from 'pages/User/interfaces';
 import { useHistory } from 'react-router-dom';
 import { path } from 'paths';
 import { capitalizeFirstLetter } from 'HelperFunctions';
-import SubmitButton, { LoadingBackground, StyledTextField} from 'StyledComponents/UserStyle';
+import SubmitButton, { LoadingBackground, StyledTextField } from 'StyledComponents/UserStyle';
 import { InputAdornment } from '@material-ui/core';
 import { Background, FormBackground, Logo } from 'StyledComponents/CommonStyle';
+import { signUpSchema } from 'pages/User/validations';
 
 const Flags = [
   {
@@ -31,30 +33,31 @@ const UserForm = (props: any) => {
   const [selectedFlag, setSelectedFlag] = React.useState(Flags[0].img);
   const [phonePattern, setPhonePattern] = useState('US');
   const [loaded, setLoaded] = useState(true);
+  const resolver = yupResolver(signUpSchema);
 
   useEffect(() => {
     return () => setisFlagDialog(false);
   }, []);
 
   const {
-    register,
     handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<IFormInput>({ mode: 'onChange' });
+    formState: { isValid },
+    control,
+  } = useForm<any>({ resolver });
 
   const onSubmit = (data: IFormInput) => {
     setLoaded(!loaded);
     data = {
       ...data,
       firstName: capitalizeFirstLetter(data.firstName),
-      lastName: capitalizeFirstLetter(data.lastName),
+      // lastName: capitalizeFirstLetter(data.lastName),
     };
     props.submitUser(data);
 
     setTimeout(() => {
       setLoaded(true);
       history.push(path.HOME_PAGE);
-    }, 999000);
+    }, 3000);
   }; // your form submit function which will invoke after successful validation
 
   //Call back function for FlagSelect component
@@ -80,106 +83,114 @@ const UserForm = (props: any) => {
             <Grid container direction='row' spacing={0}>
               <Grid container spacing={6}>
                 <Grid item xs={5}>
-                  <StyledTextField
-                    variant={'outlined'}
-                    width='170px'
-                    height='58px'
-                    error={!!errors?.firstName}
-                    id='standard-basic'
-                    label='First Name'
-                    {...register('firstName', {
-                      required: true,
-                      pattern: /^[A-Za-z]+$/i,
-                    })}
-                    helperText={!!errors?.firstName ? 'Required or invalid' : ''}
+                  <Controller
+                    render={({ field, formState }) => (
+                      <StyledTextField
+                        variant={'outlined'}
+                        width='170px'
+                        height='58px'
+                        id='standard-basic'
+                        label='First Name'
+                        {...field}
+                        error={!!formState.errors?.firstName}
+                        helperText={!!formState.errors?.firstName ? 'Required or invalid' : ''}
+                      />
+                    )}
+                    name='firstName'
+                    control={control}
+                    defaultValue=''
                   />
                 </Grid>
                 <Grid item xs={5}>
-                  <StyledTextField
-                    variant={'outlined'}
-                    width='170px'
-                    height='58px'
-                    error={!!errors?.lastName}
-                    id='standard-basic'
-                    label='Last Name'
-                    {...register('lastName', {
-                      required: true,
-                      pattern: /^[A-Za-z]+$/i,
-                    })}
-                    helperText={!!errors?.lastName ? 'Required or invalid' : ''}
+                  <Controller
+                    render={({ field, formState }) => (
+                      <StyledTextField
+                        variant={'outlined'}
+                        width='170px'
+                        height='58px'
+                        id='standard-basic'
+                        label='last Name'
+                        {...field}
+                        error={!!formState.errors?.lastName}
+                        helperText={!!formState.errors?.lastName ? 'Required or invalid' : ''}
+                      />
+                    )}
+                    name='lastName'
+                    control={control}
+                    defaultValue=''
                   />
                 </Grid>
               </Grid>
 
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <StyledTextField
-                    variant={'outlined'}
-                    width='366px'
-                    height='58px'
-                    error={!!errors?.phoneNumber}
-                    id='standard-basic'
-                    label='Phone Number'
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <img src={selectedFlag} alt='logo' onClick={() => setisFlagDialog(true)} />
-                        </InputAdornment>
-                      ),
-                    }}
-                    {...register('phoneNumber', {
-                      required: true,
-                      pattern: phonePattern === 'AUS' ? /^[0-9\s]*$/i : /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/i,
-                    })}
-                    helperText={!!errors?.phoneNumber ? 'invalid phone number' : ''}
+                  <Controller
+                    render={({ field, formState }) => (
+                      <StyledTextField
+                        variant={'outlined'}
+                        width='366px'
+                        height='58px'
+                        id='standard-basic'
+                        label='Phone Number'
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position='start'>
+                              <img src={selectedFlag} alt='logo' onClick={() => setisFlagDialog(true)} />
+                            </InputAdornment>
+                          ),
+                        }}
+                        {...field}
+                        error={!!formState.errors?.phoneNumber}
+                        helperText={!!formState.errors?.phoneNumber ? 'invalid phone number' : ''}
+                      />
+                    )}
+                    name='phoneNumber'
+                    control={control}
+                    defaultValue=''
                   />
                 </Grid>
 
                 <Grid item xs={12}>
-                  <StyledTextField
-                    variant={'outlined'}
-                    width='366px'
-                    height='58px'
-                    error={!!errors?.email}
-                    id='standard-basic'
-                    label='Email'
-                    {...register('email', {
-                      required: true,
-                      pattern: /^[a-z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    })}
-                    helperText={!!errors?.email ? 'Invalid email address' : ''}
+                  <Controller
+                    render={({ field, formState }) => (
+                      <StyledTextField
+                        variant={'outlined'}
+                        width='366px'
+                        height='58px'
+                        id='standard-basic'
+                        label='Email'
+                        {...field}
+                        error={!!formState.errors?.email}
+                        helperText={!!formState.errors?.email ? 'Invalid email address' : ''}
+                      />
+                    )}
+                    name='email'
+                    control={control}
+                    defaultValue=''
                   />
                 </Grid>
 
                 <Grid item xs={12}>
-                  <StyledTextField
-                    variant={'outlined'}
-                    width='366px'
-                    height='58px'
-                    error={!!errors?.password}
-                    id='standard-basic'
-                    label='Password'
-                    {...register('password', {
-                      required: true,
-                      minLength: 8,
-                      pattern: /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)$/i,
-                    })}
-                    helperText={
-                      errors?.password?.type === 'required'
-                        ? 'Required'
-                        : errors?.password?.type === 'minLength'
-                        ? 'Oops! You need a password longer than 8 characters with numbers and letters.'
-                        : errors?.password?.type === 'pattern'
-                        ? 'Password must contain atleast 1 uppercase, lowercase and number'
-                        : ''
-                    }
+                  <Controller
+                    render={({ field, formState }) => (
+                      <StyledTextField
+                        variant={'outlined'}
+                        width='366px'
+                        height='58px'
+                        id='standard-basic'
+                        label='Password'
+                        {...field}
+                        error={!!formState.errors?.password}
+                        helperText={!!formState.errors?.password ? 'Invalid Password' : ''}
+                      />
+                    )}
+                    name='password'
+                    control={control}
+                    defaultValue=''
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <SubmitButton disabled={!isValid} type='submit'>
-                    {' '}
-                    Next{' '}
-                  </SubmitButton>
+                  <SubmitButton type='submit'> Next </SubmitButton>
                 </Grid>
               </Grid>
             </Grid>
