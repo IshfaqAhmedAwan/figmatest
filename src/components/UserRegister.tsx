@@ -41,9 +41,10 @@ const UserForm = (props: any) => {
 
   const {
     handleSubmit,
-    formState: { isValid },
+    formState,
     control,
   } = useForm<any>({ resolver });
+  const { isValid } = formState;
 
   const onSubmit = (data: IFormInput) => {
     setLoaded(!loaded);
@@ -93,7 +94,7 @@ const UserForm = (props: any) => {
                         label='First Name'
                         {...field}
                         error={!!formState.errors?.firstName}
-                        helperText={!!formState.errors?.firstName ? 'Required or invalid' : ''}
+                        helperText={!!formState.errors?.firstName ? formState.errors.firstName.message : ''}
                       />
                     )}
                     name='firstName'
@@ -112,7 +113,7 @@ const UserForm = (props: any) => {
                         label='last Name'
                         {...field}
                         error={!!formState.errors?.lastName}
-                        helperText={!!formState.errors?.lastName ? 'Required or invalid' : ''}
+                        helperText={!!formState.errors?.lastName ? formState.errors.lastName.message : ''}
                       />
                     )}
                     name='lastName'
@@ -141,7 +142,7 @@ const UserForm = (props: any) => {
                         }}
                         {...field}
                         error={!!formState.errors?.phoneNumber}
-                        helperText={!!formState.errors?.phoneNumber ? 'invalid phone number' : ''}
+                        helperText={!!formState.errors?.phoneNumber ? formState.errors.phoneNumber.message : ''}
                       />
                     )}
                     name='phoneNumber'
@@ -161,7 +162,7 @@ const UserForm = (props: any) => {
                         label='Email'
                         {...field}
                         error={!!formState.errors?.email}
-                        helperText={!!formState.errors?.email ? 'Invalid email address' : ''}
+                        helperText={!!formState.errors?.email ? formState.errors.email.message : ''}
                       />
                     )}
                     name='email'
@@ -181,7 +182,7 @@ const UserForm = (props: any) => {
                         label='Password'
                         {...field}
                         error={!!formState.errors?.password}
-                        helperText={!!formState.errors?.password ? 'Invalid Password' : ''}
+                        helperText={!!formState.errors?.password ? formState.errors.password.message : ''}
                       />
                     )}
                     name='password'
@@ -190,7 +191,7 @@ const UserForm = (props: any) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <SubmitButton type='submit'> Next </SubmitButton>
+                  <SubmitButton  type='submit' disabled={!isValid}> Next </SubmitButton>
                 </Grid>
               </Grid>
             </Grid>

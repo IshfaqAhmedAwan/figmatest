@@ -20,10 +20,10 @@ export const FormBackground = styled.section`
   width: 414px;
   height: 896px;
   & .MuiGrid-spacing-xs-6 {
-    margin-bottom: 0px;
+    margin-bottom: 22px;
   }
   & .MuiGrid-spacing-xs-2 > .MuiGrid-item {
-    padding-bottom: 18px;
+    padding-bottom: 22px;
   }
 `;
 
