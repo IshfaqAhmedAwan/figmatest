@@ -12,10 +12,10 @@ export const Background = styled.section`
 export const FormBackground = styled.section`
   background: #ffffff;
   position: absolute;
-  margin: 20px;
-  margin-left: 400px;
+  margin: 1%;
+  margin-left: 35%;
 
-  padding-left: 30px;
+  padding-left: 38px;
   align-items: center;
   width: 414px;
   height: 896px;

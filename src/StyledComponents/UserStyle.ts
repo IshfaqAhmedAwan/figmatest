@@ -33,8 +33,9 @@ export const LoadingBackground = styled.div<BackgroundProps>`
       display: block; /* show */
     `}
   & .css-4ndf5c-LoadingOverlayWrapperBase {
-    margin-top: 470px;
-    margin-right: 650px;
+    margin-top: 27.5%;
+    margin-right: 51.8%;
+    color:green;
   }
 `;
 

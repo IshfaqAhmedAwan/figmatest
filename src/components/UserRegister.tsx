@@ -39,14 +39,11 @@ const UserForm = (props: any) => {
     return () => setisFlagDialog(false);
   }, []);
 
-  const {
-    handleSubmit,
-    formState,
-    control,
-  } = useForm<any>({ resolver });
+  const { handleSubmit, formState, control } = useForm<any>({ mode: 'onChange', resolver });
   const { isValid } = formState;
 
   const onSubmit = (data: IFormInput) => {
+    console.log('data : ', data);
     setLoaded(!loaded);
     data = {
       ...data,
@@ -65,7 +62,9 @@ const UserForm = (props: any) => {
   const flagStateChange = (index: number) => {
     setisFlagDialog(false);
     setSelectedFlag(Flags[index].img);
-    Flags[index].code === '+1-United States' ? setPhonePattern('US') : setPhonePattern('AUS');
+    console.log('phonePattern-before', phonePattern,index);
+    Flags[index].code === '+1-United States' ? setPhonePattern('US')  : setPhonePattern('AUS');
+    console.log('phonePattern-before', phonePattern,index);
   };
 
   return (
@@ -189,9 +188,19 @@ const UserForm = (props: any) => {
                     control={control}
                     defaultValue=''
                   />
+
+                  <Controller
+                    render={({ field, formState }) => <input type='hidden' value={phonePattern} />}
+                    name='country'
+                    control={control}
+                    defaultValue={phonePattern}
+                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <SubmitButton  type='submit' disabled={!isValid}> Next </SubmitButton>
+                  <SubmitButton type='submit' disabled={!isValid}>
+                    {' '}
+                    Next{' '}
+                  </SubmitButton>
                 </Grid>
               </Grid>
             </Grid>
