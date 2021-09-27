@@ -33,8 +33,9 @@ export const LoadingBackground = styled.div<BackgroundProps>`
       display: block; /* show */
     `}
   & .css-4ndf5c-LoadingOverlayWrapperBase {
-    margin-top: 470px;
-    margin-right: 650px;
+    margin-top: 38.6%;
+    margin-right: 45.5%;
+    color:green;
   }
 `;
 
@@ -49,6 +50,9 @@ const SubmitButton = styled.button`
   font-size: 16px;
   letter-spacing: 10px;
   width: 366px;
+  :disabled {
+  opacity: 0.4;
+}
 `;
 
 export const FormField = styled.input`
