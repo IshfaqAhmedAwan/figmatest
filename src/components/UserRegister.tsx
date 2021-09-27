@@ -8,7 +8,7 @@ import america from 'assets/images/america.png';
 import FlagSelect from 'components/FlagSelect';
 import { IFormInput } from 'pages/User/interfaces';
 import { useHistory } from 'react-router-dom';
-import { path } from 'paths';
+import { path, countries } from 'enums';
 import { capitalizeFirstLetter } from 'HelperFunctions';
 import SubmitButton, { LoadingBackground, StyledTextField } from 'StyledComponents/UserStyle';
 import { InputAdornment } from '@material-ui/core';
@@ -31,7 +31,6 @@ const UserForm = (props: any) => {
   //This state is to send true or false to component FlagSelect to trigger dialogue box
   const [isFlagDialog, setisFlagDialog] = useState(false);
   const [selectedFlag, setSelectedFlag] = React.useState(Flags[0].img);
-  const [phonePattern, setPhonePattern] = useState('US');
   const [loaded, setLoaded] = useState(true);
   const resolver = yupResolver(signUpSchema);
 
@@ -57,11 +56,12 @@ const UserForm = (props: any) => {
     }, 3000);
   }; // your form submit function which will invoke after successful validation
 
-  //Call back function for FlagSelect component
+  // Call back function for FlagSelect component
   const flagStateChange = (index: number) => {
     setisFlagDialog(false);
     setSelectedFlag(Flags[index].img);
-    Flags[index].code === '+1-United States' ? setPhonePattern('US') : setPhonePattern('AUS');
+    // Created a custum field in register validate according to country in yup schema
+    Flags[index].code === '+1-United States' ? setValue('country', countries.AMERICA) : setValue('country', countries.AUSTRALIA);
   };
 
   return (
@@ -188,9 +188,6 @@ const UserForm = (props: any) => {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  {/* Created a custum field in register validate according to country in yup schema */}
-                  {setValue('country', phonePattern)}
-
                   <SubmitButton type='submit' disabled={!isValid}>
                     {' '}
                     Next{' '}
