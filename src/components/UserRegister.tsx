@@ -38,7 +38,7 @@ const UserForm = (props: any) => {
     return () => setisFlagDialog(false);
   }, []);
 
-  const { handleSubmit, formState, control, setValue } = useForm<any>({ mode: 'onBlur', resolver });
+  const { handleSubmit, formState, control, setValue } = useForm<any>({ mode: 'all', resolver });
   const { isValid } = formState;
 
   const onSubmit = (data: IFormInput) => {
@@ -61,7 +61,11 @@ const UserForm = (props: any) => {
     setisFlagDialog(false);
     setSelectedFlag(Flags[index].img);
     // Created a custum field in register validate according to country in yup schema
-    Flags[index].code === '+1-United States' ? setValue('country', countries.AMERICA) : setValue('country', countries.AUSTRALIA);
+    if (Flags[index].code === '+1-United States') {
+      setValue('country', countries.AMERICA);
+    } else {
+      setValue('country', countries.AUSTRALIA);
+    }
   };
 
   return (
