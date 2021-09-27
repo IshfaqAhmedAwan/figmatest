@@ -39,11 +39,10 @@ const UserForm = (props: any) => {
     return () => setisFlagDialog(false);
   }, []);
 
-  const { handleSubmit, formState, control } = useForm<any>({ mode: 'onChange', resolver });
+  const { handleSubmit, formState, control, setValue } = useForm<any>({ mode: 'onBlur', resolver });
   const { isValid } = formState;
 
   const onSubmit = (data: IFormInput) => {
-    console.log('data : ', data);
     setLoaded(!loaded);
     data = {
       ...data,
@@ -62,9 +61,7 @@ const UserForm = (props: any) => {
   const flagStateChange = (index: number) => {
     setisFlagDialog(false);
     setSelectedFlag(Flags[index].img);
-    console.log('phonePattern-before', phonePattern,index);
-    Flags[index].code === '+1-United States' ? setPhonePattern('US')  : setPhonePattern('AUS');
-    console.log('phonePattern-before', phonePattern,index);
+    Flags[index].code === '+1-United States' ? setPhonePattern('US') : setPhonePattern('AUS');
   };
 
   return (
@@ -179,6 +176,7 @@ const UserForm = (props: any) => {
                         height='58px'
                         id='standard-basic'
                         label='Password'
+                        type='password'
                         {...field}
                         error={!!formState.errors?.password}
                         helperText={!!formState.errors?.password ? formState.errors.password.message : ''}
@@ -188,15 +186,11 @@ const UserForm = (props: any) => {
                     control={control}
                     defaultValue=''
                   />
-
-                  <Controller
-                    render={({ field, formState }) => <input type='hidden' value={phonePattern} />}
-                    name='country'
-                    control={control}
-                    defaultValue={phonePattern}
-                  />
                 </Grid>
                 <Grid item xs={12}>
+                  {/* Created a custum field in register validate according to country in yup schema */}
+                  {setValue('country', phonePattern)}
+
                   <SubmitButton type='submit' disabled={!isValid}>
                     {' '}
                     Next{' '}

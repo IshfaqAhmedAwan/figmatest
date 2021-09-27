@@ -13,6 +13,6 @@ export const signUpSchema = Yup.object().shape({
     .when('country', {
       is: 'US',
       then: Yup.string().matches(/^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/, 'invalid Phone Number'),
+      otherwise: Yup.string().matches(/^(\+?\(61\)|\(\+?61\)|\+?61|\(0[1-9]\)|0[1-9])?( ?-?[0-9]){7,9}$/, 'invalid Phone Number'),
     }),
-    
 });
